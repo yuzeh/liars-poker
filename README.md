@@ -4,8 +4,10 @@ Uses random sampling to compute the likelihood of larger hands in liars poker.
 
 ## Installation
 
-After installing [Leiningen](http://leiningen.org/), clone this repo and do the following:
+After installing [Leiningen](http://leiningen.org/), do the following:
 
+    git clone https://github.com/yuzeh/liars-poker.git
+    cd liars-poker
     lein run
 
 You can also `lein uberjar` to bundle and then execute the resulting bundle.
