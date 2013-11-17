@@ -90,7 +90,7 @@
 (defn straight-flush? [hand]
   (some identity
     (for [[suit rank-vector] (flatten-rank-by-suit hand)]
-      (some #(straight-at? rank-vector %) straight-rank-starters))))
+      (some (partial straight-at? rank-vector (nth rank-vector 12)) straight-rank-starters))))
 
 ;; full house and friends
 (defn full-house?
@@ -138,6 +138,7 @@
                            :long-straight long-straight?
                            :flush flush?
                            :super-flush super-flush?
+                           :straight-flush straight-flush?
                            :full-house full-house?
                            :ronald-mcdonald-house ronald-mcdonald-house?})
 
