@@ -146,6 +146,9 @@
         present-hand-types (filter #((hand->check-function %) hand) hand-types)]
     (reduce (fn [m k] (assoc m k (inc (m k)))) count-map present-hand-types)))
 
+(defn counts-to-probs [count-map total]
+  (into {} (for [[k v] count-map] [k (/ v (float total))])))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
@@ -161,10 +164,10 @@
                       count-map (zipmap (keys hand->check-function) (repeat (count hand->check-function) 0))]
                  (let [hand (take num-cards (simple/sample deck))]
                    (when
-                     (= 0 (mod i print-every))
-                     (println (str i " " count-map)))
+                     (and (not= 0 i) (= 0 (mod i print-every)))
+                     (println (str i ": " (counts-to-probs count-map i))))
                    (if (>= i num-samples)
                        count-map
                        (recur (inc i) (check-sample hand count-map)))))]
-    (println output)))
+    (println (counts-to-probs output num-samples))))
 
